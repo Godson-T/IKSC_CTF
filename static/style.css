@@ -1,0 +1,181 @@
+:root {
+    --primary: #0d6efd;
+    --success: #28a745;
+    --warning: #ffc107;
+    --light-bg: #f8f9fa;
+    --dark-bg: #121212;
+    --card-light: #ffffff;
+    --card-dark: #1e1e2f;
+    --text-light: #f8f9fa;
+    --text-dark: #212529;
+}
+
+/* ---------------- Body & Navbar ---------------- */
+body, .navbar, .card, .table, .nav-link, .navbar-brand {
+    transition: all 0.4s ease;
+}
+/*-----------TABLE Rounded Corners-----------*/
+
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table th, .table td {
+    border: none;
+}
+
+.table thead {
+    background-color: var(--primary);
+    color: var(--text-light);
+}
+
+.table tbody tr:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+
+/* Navbar */
+.navbar {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 0 0 10px 10px;
+}
+.navbar-light .nav-link, .navbar-light .navbar-brand {
+    color: var(--text-dark);
+}
+.navbar-dark .nav-link, .navbar-dark .navbar-brand {
+    color: var(--text-light);
+}
+
+/* ---------------- Challenge Cards ---------------- */
+/* ---------------- Card Styles ---------------- */
+.card {
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Unsolved challenge */
+.card.bg-warning {
+    background-color: #5f3804; /* soft pastel orange */
+    color: #212529;
+}
+
+/* Solved challenge */
+.card.bg-success {
+    background-color: #d4edda; /* soft green */
+    color: #155724;
+}
+
+/* Hover effect */
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* Card header */
+.card-header {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Badge */
+.badge {
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 0.35em 0.6em;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Unsolved badge */
+.badge.bg-dark {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+/* Solved badge */
+.badge.bg-light {
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+
+/* Flash animation for solved card */
+@keyframes flashSolved {
+    0% { transform: scale(1); box-shadow: 0 0 5px rgba(0,0,0,0.2); }
+    50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(0,200,0,0.7); }
+    100% { transform: scale(1); box-shadow: 0 0 5px rgba(0,0,0,0.2); }
+}
+.flash-solved {
+    animation: flashSolved 0.6s ease forwards;
+}
+
+/* Buttons */
+button.btn, input.form-control {
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+button.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Dark Mode */
+body.bg-dark {
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+}
+body.bg-dark .card {
+    background-color: var(--card-dark);
+    color: var(--text-light);
+}
+body.bg-dark .card-header {
+    background-color: rgba(255,255,255,0.05);
+}
+body.bg-dark .badge.bg-dark {
+    background-color: #6c757d !important;
+    color: var(--text-light) !important;
+}
+body.bg-dark .btn-primary {
+    background-color: var(--primary);
+    color: var(--text-light);
+}
+
+/* Page Heading */
+h2.text-center {
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+/* Responsive tweaks */
+@media (max-width: 576px) {
+    .card-header { font-size: 1rem; }
+    .badge { font-size: 0.75rem; }
+}
+/* Feature Cards */
+.feature-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease, color 0.5s ease;
+    background-color: #c4c4c4;  /* light pastel for light mode */
+    color: #212529;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+body.bg-dark .feature-card {
+    background-color: #2c2c2c; /* darker card for dark mode */
+    color: #f8f9fa;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+}
+
+.feature-card i {
+    transition: color 0.4s ease;
+}
+
+body.bg-dark .feature-card i.text-primary { color: #4dabf7; }
+body.bg-dark .feature-card i.text-warning { color: #ffc107; }
+body.bg-dark .feature-card i.text-success { color: #4ade80; }

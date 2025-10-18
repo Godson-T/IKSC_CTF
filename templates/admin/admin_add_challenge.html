@@ -1,0 +1,25 @@
+{% extends "admin/admin_base.html" %}
+{% block title %}Add Challenge{% endblock %}
+
+{% block content %}
+<h2>Add New Challenge</h2>
+<form method="POST">
+    <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input type="text" class="form-control" name="title" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" name="description" rows="3" required></textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Flag</label>
+        <input type="text" class="form-control" name="flag" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Points</label>
+        <input type="number" class="form-control" name="points" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Challenge</button>
+</form>
+{% endblock %}

@@ -1,0 +1,46 @@
+# ------------------------
+# Python
+# ------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+*.egg-info/
+dist/
+build/
+
+# ------------------------
+# Virtual Environments
+# ------------------------
+venv/
+env/
+
+# ------------------------
+# Database
+# ------------------------
+*.db
+*.sqlite3
+instance/
+
+# ------------------------
+# Flask / Django / Others
+# ------------------------
+*.log
+*.pot
+*.pyc
+*.pyo
+
+# ------------------------
+# IDEs / Editors
+# ------------------------
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ------------------------
+# OS Files
+# ------------------------
+.DS_Store
+Thumbs.db

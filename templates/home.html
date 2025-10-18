@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center py-5">
+  <h1 class="display-4 fw-bold mb-3">Welcome to IKSC CTF</h1>
+  <p class="lead mb-4">Test your skills in cybersecurity, solve challenges, and climb the leaderboard!</p>
+  
+  <div class="d-flex justify-content-center gap-3 flex-wrap">
+    <a href="/challenges" class="btn btn-primary btn-lg shadow-sm">View Challenges</a>
+    <a href="/leaderboard" class="btn btn-outline-primary btn-lg shadow-sm">Leaderboard</a>
+  </div>
+
+
+<div class="row mt-5 g-4 text-center">
+  <div class="col-md-4">
+    <div class="feature-card p-4 rounded shadow-sm">
+      <i class="fas fa-shield-alt fa-3x mb-3 text-primary"></i>
+      <h4 class="fw-bold">Secure Challenges</h4>
+      <p>Practice with real-world security challenges and improve your hacking skills safely.</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="feature-card p-4 rounded shadow-sm">
+      <i class="fas fa-trophy fa-3x mb-3 text-warning"></i>
+      <h4 class="fw-bold">Competitive Leaderboard</h4>
+      <p>Track your progress and compete with others to become the top hacker!</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="feature-card p-4 rounded shadow-sm">
+      <i class="fas fa-lightbulb fa-3x mb-3 text-success"></i>
+      <h4 class="fw-bold">Learn & Innovate</h4>
+      <p>Gain new knowledge and techniques by solving diverse challenges.</p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

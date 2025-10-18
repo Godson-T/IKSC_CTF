@@ -1,0 +1,44 @@
+{% extends "admin/admin_base.html" %}
+{% block title %}Users{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+        <h2 class="mb-2">All Users</h2>
+        
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Score</th>
+                        <th>Admin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in users %}
+                    <tr>
+                        <td>{{ u['id'] }}</td>
+                        <td>{{ u['username'] }}</td>
+                        <td>{{ u['email'] }}</td>
+                        <td>{{ u['score'] }}</td>
+                        <td class="text-center">
+                            {% if u['is_admin'] %}
+                                <span class="badge bg-success">✅</span>
+                            {% else %}
+                                <span class="badge bg-danger">❌</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

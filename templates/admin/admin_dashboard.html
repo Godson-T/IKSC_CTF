@@ -1,0 +1,40 @@
+{% extends "admin/admin_base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4 text-center fw-bold">Admin Dashboard</h2>
+
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-5">
+        <div class="col-sm-6 col-md-4">
+            <div class="card shadow-sm text-center p-4 feature-card flash-card">
+                <h5 class="text-muted">Total Challenges</h5>
+                <h2 class="fw-bold text-primary">{{ total_challenges }}</h2>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="card shadow-sm text-center p-4 feature-card flash-card">
+                <h5 class="text-muted">Total Users</h5>
+                <h2 class="fw-bold text-success">{{ total_users }}</h2>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="card shadow-sm text-center p-4 feature-card flash-card">
+                <h5 class="text-muted">Total Flags Solved</h5>
+                <h2 class="fw-bold text-warning">{{ total_flags_solved }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js Graph -->
+    <div class="card shadow-sm p-3">
+        <canvas id="solvesChart"
+                data-dates='{{ dates|tojson|safe }}'
+                data-counts='{{ counts|tojson|safe }}'></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Include your separate JS -->
+<script src="{{ url_for('static', filename='admin_script.js') }}"></script>
+{% endblock %}
