@@ -247,7 +247,6 @@ init_db()
 def create_admin():
     conn = sqlite3.connect("ctf.db")
     c = conn.cursor()
-    from flask_bcrypt import Bcrypt
     bcrypt = Bcrypt(None)
 
     username = "adminiksc"
@@ -260,6 +259,7 @@ def create_admin():
                   (username, email, password, 1))
     conn.commit()
     conn.close()
+
 
 create_admin()
 
