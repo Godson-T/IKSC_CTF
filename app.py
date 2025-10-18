@@ -247,21 +247,24 @@ init_db()
 def create_admin():
     conn = sqlite3.connect("ctf.db")
     c = conn.cursor()
+    from flask_bcrypt import Bcrypt
     bcrypt = Bcrypt(None)
 
-    username = "adminiksc"
+    username = "admin2024"
     email = "admin@example.com"
-    password = bcrypt.generate_password_hash("ikscadmin123").decode('utf-8')
+    password = bcrypt.generate_password_hash("Ikscadmin2024").decode('utf-8')
 
-    existing = c.execute("SELECT * FROM users WHERE username=?", (username,)).fetchone()
+    existing = c.execute("SELECT * FROM users WHERE username=? OR email=?", (username, email)).fetchone()
     if not existing:
-        c.execute("INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, ?)",
-                  (username, email, password, 1))
+        c.execute(
+            "INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, ?)",
+            (username, email, password, 1)
+        )
     conn.commit()
     conn.close()
 
-
 create_admin()
+
 
 # ---------------- RUN ----------------
 if __name__ == "__main__":
