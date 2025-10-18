@@ -51,6 +51,7 @@ def login():
             session['username'] = user['username']
             session['is_admin'] = bool(user['is_admin']) if 'is_admin' in user.keys() else False
 
+
             # Redirect based on role
             if session['is_admin']:
                 return redirect(url_for('admin_dashboard'))
@@ -209,8 +210,6 @@ def leaderboard():
 def init_db():
     conn = sqlite3.connect("ctf.db")
     c = conn.cursor()
-    
-    # Users table
     c.execute("""
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -221,8 +220,6 @@ def init_db():
         is_admin INTEGER DEFAULT 0
     )
     """)
-    
-    # Challenges table
     c.execute("""
     CREATE TABLE IF NOT EXISTS challenges (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -232,8 +229,6 @@ def init_db():
         points INTEGER DEFAULT 0
     )
     """)
-    
-    # Solves table
     c.execute("""
     CREATE TABLE IF NOT EXISTS solves (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -242,32 +237,30 @@ def init_db():
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
     """)
-    
     conn.commit()
     conn.close()
+
+init_db()
+
 
 # 2️⃣ Create default admin account
 def create_admin():
     conn = sqlite3.connect("ctf.db")
     c = conn.cursor()
-    
-    username = "Superadmin"
-    email = "superadmin@example.com"
+    from flask_bcrypt import Bcrypt
+    bcrypt = Bcrypt(None)
+
+    username = "adminiksc"
+    email = "admin@example.com"
     password = bcrypt.generate_password_hash("ikscadmin123").decode('utf-8')
 
-    # Check if admin exists
     existing = c.execute("SELECT * FROM users WHERE username=?", (username,)).fetchone()
     if not existing:
-        c.execute(
-            "INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, ?)",
-            (username, email, password, 1)
-        )
-    
+        c.execute("INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, ?)",
+                  (username, email, password, 1))
     conn.commit()
     conn.close()
 
-# 3️⃣ Run both on startup
-init_db()
 create_admin()
 
 # ---------------- RUN ----------------
