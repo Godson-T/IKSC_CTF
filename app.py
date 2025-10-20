@@ -46,13 +46,15 @@ def login():
         conn.close()
 
         if user and bcrypt.check_password_hash(user['password'], password):
-            # Store session data safely
+            # ✅ Store session safely (with default False)
             session['user_id'] = user['id']
             session['username'] = user['username']
             session['is_admin'] = bool(user['is_admin']) if 'is_admin' in user.keys() else False
 
-            # Redirect based on role
-            if session['is_admin']:
+            print("✅ SESSION DATA:", session)  # debug print
+
+            # ✅ Redirect safely
+            if session.get('is_admin', False):
                 return redirect(url_for('admin_dashboard'))
             else:
                 return redirect(url_for('home'))
@@ -61,6 +63,9 @@ def login():
             return render_template('login.html', error="Invalid username or password")
 
     return render_template('login.html')
+
+
+ 
 
 # ---------------- LOGOUT ----------------
 @app.route('/logout')
@@ -205,6 +210,41 @@ def leaderboard():
     conn.close()
     return render_template("leaderboard.html", leaderboard=leaderboard_data)
 
-# ---------------- RUN ----------------
-if __name__ == "__main__":
+# 1️⃣ Initialize DB and tables
+def init_db():
+    conn = sqlite3.connect("ctf.db")
+    c = conn.cursor()
+    c.execute("""
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT UNIQUE NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        password TEXT NOT NULL,
+        score INTEGER DEFAULT 0,
+        is_admin INTEGER DEFAULT 0
+    )
+    """)
+    c.execute("""
+    CREATE TABLE IF NOT EXISTS challenges (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        description TEXT,
+        flag TEXT NOT NULL,
+        points INTEGER DEFAULT 0
+    )
+    """)
+    c.execute("""
+    CREATE TABLE IF NOT EXISTS solves (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        challenge_id INTEGER NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+    """)
+    conn.commit()
+    conn.close()
+
+init_db()
+
+if  __name__=="__main__":
     app.run(debug=True)
