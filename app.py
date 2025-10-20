@@ -211,40 +211,6 @@ def leaderboard():
     return render_template("leaderboard.html", leaderboard=leaderboard_data)
 
 # 1️⃣ Initialize DB and tables
-def init_db():
-    conn = sqlite3.connect("ctf.db")
-    c = conn.cursor()
-    c.execute("""
-    CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username TEXT UNIQUE NOT NULL,
-        email TEXT UNIQUE NOT NULL,
-        password TEXT NOT NULL,
-        score INTEGER DEFAULT 0,
-        is_admin INTEGER DEFAULT 0
-    )
-    """)
-    c.execute("""
-    CREATE TABLE IF NOT EXISTS challenges (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        title TEXT NOT NULL,
-        description TEXT,
-        flag TEXT NOT NULL,
-        points INTEGER DEFAULT 0
-    )
-    """)
-    c.execute("""
-    CREATE TABLE IF NOT EXISTS solves (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        user_id INTEGER NOT NULL,
-        challenge_id INTEGER NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )
-    """)
-    conn.commit()
-    conn.close()
-
-init_db()
 
 if  __name__=="__main__":
     app.run(debug=True)
