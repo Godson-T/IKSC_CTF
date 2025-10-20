@@ -210,7 +210,30 @@ def leaderboard():
     conn.close()
     return render_template("leaderboard.html", leaderboard=leaderboard_data)
 
-# 1️⃣ Initialize DB and tables
+
+def create_default_admin():
+    conn = get_db()
+    c = conn.cursor()
+
+    # Admin credentials
+    username = "admin2024"
+    email = "admin@example.com"
+    password = bcrypt.generate_password_hash("Ikscadmin2024").decode('utf-8')
+    is_admin = 1
+
+    # Check if admin already exists
+    existing = c.execute("SELECT * FROM users WHERE username=? OR email=?", (username, email)).fetchone()
+    if not existing:
+        c.execute(
+            "INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, ?)",
+            (username, email, password, is_admin)
+        )
+        conn.commit()
+    conn.close()
+
+# Call it after DB initialization
+create_default_admin()
+
 
 if  __name__=="__main__":
     app.run(debug=True)
