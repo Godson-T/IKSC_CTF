@@ -217,7 +217,7 @@ def create_default_admin():
 
     # Admin credentials
     username = "admin2024"
-    email = "admin@example.com"
+    email = "admin2024@example.com"
     password = bcrypt.generate_password_hash("Ikscadmin2024").decode('utf-8')
     is_admin = 1
 
