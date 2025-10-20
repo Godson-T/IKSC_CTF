@@ -46,14 +46,15 @@ def login():
         conn.close()
 
         if user and bcrypt.check_password_hash(user['password'], password):
-            # Store session data safely
+            # ✅ Store session safely (with default False)
             session['user_id'] = user['id']
             session['username'] = user['username']
             session['is_admin'] = bool(user['is_admin']) if 'is_admin' in user.keys() else False
 
+            print("✅ SESSION DATA:", session)  # debug print
 
-            # Redirect based on role
-            if session['is_admin']:
+            # ✅ Redirect safely
+            if session.get('is_admin', False):
                 return redirect(url_for('admin_dashboard'))
             else:
                 return redirect(url_for('home'))
@@ -62,6 +63,9 @@ def login():
             return render_template('login.html', error="Invalid username or password")
 
     return render_template('login.html')
+
+
+ 
 
 # ---------------- LOGOUT ----------------
 @app.route('/logout')
@@ -242,30 +246,5 @@ def init_db():
 
 init_db()
 
-
-# 2️⃣ Create default admin account
-def create_admin():
-    conn = sqlite3.connect("ctf.db")
-    c = conn.cursor()
-    from flask_bcrypt import Bcrypt
-    bcrypt = Bcrypt(None)
-
-    username = "admin2024"
-    email = "admin@example.com"
-    password = bcrypt.generate_password_hash("Ikscadmin2024").decode('utf-8')
-
-    existing = c.execute("SELECT * FROM users WHERE username=? OR email=?", (username, email)).fetchone()
-    if not existing:
-        c.execute(
-            "INSERT INTO users (username, email, password, is_admin) VALUES (?, ?, ?, ?)",
-            (username, email, password, 1)
-        )
-    conn.commit()
-    conn.close()
-
-create_admin()
-
-
-# ---------------- RUN ----------------
-if __name__ == "__main__":
+if  __name__=="__main__":
     app.run(debug=True)
